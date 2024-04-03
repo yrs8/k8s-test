@@ -1,0 +1,35 @@
+services:
+  app-nginx-service:
+    build:
+      # Dockerfile の場所
+      context: ./nginx
+      args:
+        - ENV_SHORT=${env_short}
+
+    # ビルドされたイメージの名前
+    image: app-nginx-${env_short}
+
+    volumes:
+      - ./nginx/default-${env_short}.conf:/etc/nginx/conf.d/default.conf
+
+    ports:
+      - "8080:80"
+
+    environment:
+      - env=${env}
+
+  app-php-service:
+    build:
+      # Dockerfile の場所
+      context: ./php
+      args:
+        - ENV_SHORT=${env_short}
+
+    # ビルドされたイメージの名前
+    image: app-php-${env_short}
+
+    volumes:
+      - ./php/index.php:/var/www/html/index.php
+
+    environment:
+      - env=${env}
