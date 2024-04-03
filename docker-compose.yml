@@ -24,6 +24,7 @@ services:
       context: ./php
       args:
         - ENV_SHORT=${env_short}
+        - ENV=${env}
 
     # ビルドされたイメージの名前
     image: app-php-${env_short}
