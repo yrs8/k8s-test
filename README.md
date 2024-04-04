@@ -45,27 +45,6 @@
    ```
    http://localhost:8080/
    ```
-1. レジストリへプッシュ ※この辺は環境に合わせて適宜読み替え
-   * **[本番環境]**
-      ```bash
-      $ docker compose --env-file .env.prod build
-
-      $ docker tag app-nginx-prod:latest <container.registry>/app-nginx-prod:v1.0
-      $ docker tag app-php-prod:latest <container.registry>/app-php-prod:v1.0
-
-      $ docker image push yrs8/app-nginx-prod:v1.0
-      $ docker image push yrs8/app-php-prod:v1.0
-      ```
-   * **[開発環境]**
-      ```bash
-      $ docker compose --env-file .env.dev build
-
-      $ docker tag app-nginx-dev:latest <container.registry>/app-nginx-dev:v1.0
-      $ docker tag app-php-dev:latest <container.registry>/app-php-dev:v1.0
-
-      $ docker image push yrs8/app-nginx-dev:v1.0
-      $ docker image push yrs8/app-php-dev:v1.0
-      ```
 
 ### Kubernetes デプロイ方法
 はじめに：マニフェストは Kubernets v1.28.6 での動作を確認しています。
@@ -109,6 +88,27 @@
    $ kubectl delete deployment app-nginx app-php
    $ kubectl delete service app-nginx-service app-php-service
    ```
+* レジストリへプッシュする方法 ※この辺は環境やレジストリに合わせて適宜読み替え
+   * **[本番環境]**
+      ```bash
+      $ docker compose --env-file .env.prod build
+
+      $ docker tag app-nginx-prod:latest <container.registry>/app-nginx-prod:v1.0
+      $ docker tag app-php-prod:latest <container.registry>/app-php-prod:v1.0
+
+      $ docker image push <container.registry>/app-nginx-prod:v1.0
+      $ docker image push <container.registry>/app-php-prod:v1.0
+      ```
+   * **[開発環境]**
+      ```bash
+      $ docker compose --env-file .env.dev build
+
+      $ docker tag app-nginx-dev:latest <container.registry>/app-nginx-dev:v1.0
+      $ docker tag app-php-dev:latest <container.registry>/app-php-dev:v1.0
+
+      $ docker image push <container.registry>/app-nginx-dev:v1.0
+      $ docker image push <container.registry>/app-php-dev:v1.0
+      ```
 
 ### 注意事項
 * Kubernetes のデプロイは、Kubernetes クラスタが既にセットアップされていることを前提としています。
