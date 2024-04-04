@@ -1,0 +1,70 @@
+# deployment-prod.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-nginx
+  template:
+    metadata:
+      labels:
+        app: app-nginx
+    spec:
+      containers:
+      - name: app-nginx
+        image: yrs8/app-nginx-prod:v1.1
+        env:
+        - name: env
+          value: "production"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-php
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-php
+  template:
+    metadata:
+      labels:
+        app: app-php
+    spec:
+      containers:
+      - name: app-php
+        image: yrs8/app-php-prod:v1.1
+        env:
+        - name: env
+          value: "production"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-nginx-service
+spec:
+  selector:
+    app: app-nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-php-service
+spec:
+  selector:
+    app: app-php
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
