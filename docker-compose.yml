@@ -30,7 +30,7 @@ services:
     image: app-php-${env_short}
 
     volumes:
-      - ./php/index.php:/var/www/html/index.php
+      - ./php:/var/www/html
 
     environment:
       - env=${env}
