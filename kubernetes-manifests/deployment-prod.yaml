@@ -123,7 +123,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: app-nginx
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 5
   metrics:
   - type: Resource
@@ -143,7 +143,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: app-php
-  minReplicas: 1
+  minReplicas: 2
   maxReplicas: 10
   metrics:
   - type: Resource
@@ -152,3 +152,25 @@ spec:
       target:
         type: Utilization
         averageUtilization: 50
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: app-nginx-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: app-nginx
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: app-php-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: app-php

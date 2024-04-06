@@ -152,3 +152,25 @@ spec:
       target:
         type: Utilization
         averageUtilization: 50
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: app-nginx-pdb
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: app-nginx
+
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: app-php-pdb
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: app-php
