@@ -28,6 +28,10 @@
    * **[開発環境]**
       ```bash
       $ docker compose --env-file .env.dev up -d
+1. ブラウザからアクセス
+   ```
+   http://localhost:8080/
+   ```
 1. コンテナの停止
    * **[本番環境]**
       ```bash
@@ -41,10 +45,6 @@
       or
       $ docker compose --env-file .env.dev down
       ```
-1. ブラウザからアクセス
-   ```
-   http://localhost:8080/
-   ```
 
 ### Kubernetes デプロイ方法
 はじめに：マニフェストは Kubernetes v1.28.6 での動作を確認しています。
