@@ -2,6 +2,7 @@
 ## Argo CD を使用した Kubernetes への継続的デリバリー
 
 イメージ画像
+
 <img src="https://github.com/yrs8/k8s-test/assets/51853487/603e8ccc-d85b-4e9d-9ea9-49135d805208" width= "85%" >
 
 ## 導入背景
@@ -38,9 +39,9 @@ Argo CD は、Kubernetes クラスタ上でのアプリケーションの持続�
       ```bash
       $ argocd@argocd-server:~$ argocd login <EXTERNAL-IP> --username admin --password <初期パスワード>
       $ argocd@argocd-server:~$ argocd account update-password
-      *** Enter password of currently logged in user (admin): ← <初期パスワード>
-      *** Enter new password for user admin: ← <新規パスワード>
-      *** Confirm new password for user admin: ← <新規パスワード>
+      *** Enter password of currently logged in user (admin): <初期パスワード>
+      *** Enter new password for user admin: <新規パスワード>
+      *** Confirm new password for user admin: <新規パスワード>
       Password updated
       Context '<EXTERNAL-IP>' updated
       $ argocd@argocd-server:~$ argocd logout <EXTERNAL-IP>
@@ -90,6 +91,10 @@ Argo CD は、Kubernetes クラスタ上でのアプリケーションの持続�
    ```bash
    $ argocd app sync k8s-test
    ```
+1. ログアウト
+   ```bash
+   $ argocd logout <EXTERNAL-IP>
+   ```
 
 ### アクセス方法
    ```
@@ -128,4 +133,27 @@ Argo CD は、Kubernetes クラスタ上でのアプリケーションの持続�
 1. 再起動して適用
    ```bash
    $ kubectl rollout restart deployment/argocd-server -n argocd
+   ```
+
+### Service の App Health がずっと Progressing になる問題の対応
+* status.loadBalancer が {} となっているため、Progressing が変化しない模様
+* https://argo-cd.readthedocs.io/en/stable/faq/#why-is-my-application-stuck-in-progressing-state
+* 根本的な対応ではないが、Argo CD の ConfigMap で強制的に Healthy にする方法
+   ```bash
+   $ kubectl patch configmap argocd-cm -n argocd --type merge -p '
+   data:
+     resource.customizations.health.Service: |
+       hs = {}
+       if obj.status ~= nil then
+         if obj.status.loadBalancer ~= nil then
+           hs.status = "Healthy"
+           hs.message = "LoadBalancer status is healthy"
+           return hs
+         end
+       end
+   
+       hs.status = "Progressing"
+       hs.message = "Waiting for LoadBalancer"
+       return hs
+   '
    ```
