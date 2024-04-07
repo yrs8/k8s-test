@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: app-nginx
 spec:
-  replicas: 1
+  replicas: 1  # Pod のレプリカ数
   selector:
     matchLabels:
       app: app-nginx
@@ -19,14 +19,14 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 20m
+            cpu: 20m  # 最小 CPU 使用量
           limits:
-            cpu: 50m
+            cpu: 50m  # 最大 CPU 使用量
         env:
         - name: env
           value: "development"
 
-        # Pod が稼働しているかどうか確認
+        # Pod の生存確認設定
         livenessProbe:
           httpGet:
             path: /health
@@ -35,7 +35,7 @@ spec:
           periodSeconds: 10       # ヘルスチェックの間隔（秒）
           timeoutSeconds: 5       # ヘルスチェックの応答タイムアウト時間（秒）
 
-        # Pod がトラフィックを受け入れる準備ができているかどうか確認
+        # Pod の準備完了確認設定
         readinessProbe:
           httpGet:
             path: /
@@ -50,7 +50,7 @@ kind: Deployment
 metadata:
   name: app-php
 spec:
-  replicas: 1
+  replicas: 1  # Pod のレプリカ数
   selector:
     matchLabels:
       app: app-php
@@ -65,26 +65,26 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 20m
+            cpu: 20m    # 最小 CPU 使用量
           limits:
-            cpu: 50m
+            cpu: 50m    # 最大 CPU 使用量
         env:
         - name: env
           value: "development"
 
-        # Pod が稼働しているかどうか確認
+        # Pod の生存確認設定
         livenessProbe:
           initialDelaySeconds: 5  # コンテナ起動後、ヘルスチェックを開始するまでの遅延時間（秒）
           periodSeconds: 10       # ヘルスチェックの間隔（秒）
           tcpSocket:
-            port: 9000            # PHP-FPM がリッスンしているポート
+            port: 9000            # php-fpm がリッスンしているポート
 
-        # Pod がトラフィックを受け入れる準備ができているかどうか確認
+        # Pod の準備完了確認設定
         readinessProbe:
           initialDelaySeconds: 5  # コンテナ起動後、チェックを開始するまでの遅延時間（秒）
           periodSeconds: 10       # チェックの間隔（秒）
           tcpSocket:
-            port: 9000            # PHP-FPM がリッスンしているポート
+            port: 9000            # php-fpm がリッスンしているポート
 
 ---
 apiVersion: v1
@@ -123,15 +123,15 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: app-nginx
-  minReplicas: 1
-  maxReplicas: 3
+  minReplicas: 1  # スケールアウトの最小値
+  maxReplicas: 3  # スケールアウトの最大値
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 50  # CPU 使用率でスケールアウト
 
 ---
 apiVersion: autoscaling/v2
@@ -143,15 +143,15 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: app-php
-  minReplicas: 1
-  maxReplicas: 5
+  minReplicas: 1  # スケールアウトの最小値
+  maxReplicas: 5  # スケールアウトの最大値
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 50  # CPU 使用率でスケールアウト
 
 ---
 apiVersion: policy/v1
@@ -159,7 +159,7 @@ kind: PodDisruptionBudget
 metadata:
   name: app-nginx-pdb
 spec:
-  maxUnavailable: 1
+  maxUnavailable: 1  # 同時にダウンできる Pod の最大数
   selector:
     matchLabels:
       app: app-nginx
@@ -170,7 +170,7 @@ kind: PodDisruptionBudget
 metadata:
   name: app-php-pdb
 spec:
-  maxUnavailable: 1
+  maxUnavailable: 1  # 同時にダウンできる Pod の最大数
   selector:
     matchLabels:
       app: app-php
