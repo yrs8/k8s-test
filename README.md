@@ -47,17 +47,20 @@
       ```
 
 ### Kubernetes デプロイ方法
-はじめに：マニフェストは Kubernetes v1.28.6 での動作を確認しています。
+* はじめに
+   * マニフェストは Kubernetes v1.28.6 での動作を確認しています。
+   * 手動で適用する場合は、本手順を参考にしてください。
+   * 自動で適用する場合は、[Argo CD](docs/argocd.md) による持続的デリバリーの方法があります。
 
 1. リポジトリをクローン
    ```bash
    $ git clone https://github.com/yrs8/k8s-test.git
    ```
-1. ディレクトリに移動
+2. ディレクトリに移動
    ```bash
    $ cd k8s-test/kubernetes-manifests
    ```
-2. マニフェストの適用・デプロイ
+3. マニフェストの適用・デプロイ
    * **[本番クラスター]**
       ```bash
       $ kubectl apply -f deployment-prod.yaml
@@ -66,17 +69,17 @@
       ```bash
       $ kubectl apply -f deployment-dev.yaml
       ```
-3. デプロイ状態を確認
+4. デプロイ状態を確認
    ```bash
    $ kubectl get pods -l app=app-nginx
    $ kubectl get pods -l app=app-php
    ```
-4. ブラウザから動作確認
+5. ブラウザから動作確認
    1. Service の EXTERNAL-IP を確認
       ```bash
       $ kubectl get svc app-nginx-service
       ```
-   1. ブラウザからアクセス
+   2. ブラウザからアクセス
       ```
       http://<EXTERNAL-IP>/
       ```
