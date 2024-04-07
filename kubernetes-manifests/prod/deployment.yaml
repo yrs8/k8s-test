@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: app-nginx
-        image: yrs8/app-nginx-prod:v1.3
+        image: yrs8/app-nginx-prod:v1.4
         imagePullPolicy: Always
         resources:
           requests:
@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: app-php
-        image: yrs8/app-php-prod:v1.2
+        image: yrs8/app-php-prod:v1.3
         imagePullPolicy: Always
         resources:
           requests:
