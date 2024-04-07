@@ -56,30 +56,40 @@
    ```bash
    $ git clone https://github.com/yrs8/k8s-test.git
    ```
-2. ディレクトリに移動
-   ```bash
-   $ cd k8s-test/kubernetes-manifests
-   ```
-3. マニフェストの適用・デプロイ
+1. マニフェストの適用・デプロイ
    * **[本番クラスター]**
       ```bash
-      $ kubectl apply -f deployment-prod.yaml
+      # ディレクトリ移動
+      $ cd k8s-test/kubernetes-manifests/prod/
+
+      # env の value が production であることを確認
+      $ grep "env" deployment.yaml -A 1
+
+      # デプロイ
+      $ kubectl apply -f deployment.yaml
       ```
    * **[開発クラスター]**
       ```bash
-      $ kubectl apply -f deployment-dev.yaml
+      # ディレクトリ移動
+      $ cd k8s-test/kubernetes-manifests/dev/
+
+      # env の value が development であることを確認
+      $ grep "env" deployment.yaml -A 1
+
+      # デプロイ
+      $ kubectl apply -f deployment.yaml
       ```
-4. デプロイ状態を確認
+1. デプロイ状態を確認
    ```bash
    $ kubectl get pods -l app=app-nginx
    $ kubectl get pods -l app=app-php
    ```
-5. ブラウザから動作確認
+1. ブラウザから動作確認
    1. Service の EXTERNAL-IP を確認
       ```bash
       $ kubectl get svc app-nginx-service
       ```
-   2. ブラウザからアクセス
+   1. ブラウザからアクセス
       ```
       http://<EXTERNAL-IP>/
       ```
@@ -87,7 +97,7 @@
 ### メモ
 * リソースを削除したいときに使いそうなコマンド
    ```bash
-   $ kubectl delete -f deployment-dev.yaml
+   $ kubectl delete -f deployment.yaml
    $ kubectl delete deployment app-nginx app-php
    $ kubectl delete service app-nginx-service app-php-service
    ```
