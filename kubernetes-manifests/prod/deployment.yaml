@@ -19,9 +19,9 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 200m
+            cpu: 20m
           limits:
-            cpu: 500m
+            cpu: 50m
         env:
         - name: env
           value: "production"
@@ -65,9 +65,9 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 200m
+            cpu: 20m
           limits:
-            cpu: 500m
+            cpu: 50m
         env:
         - name: env
           value: "production"

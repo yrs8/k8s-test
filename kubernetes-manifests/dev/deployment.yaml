@@ -19,9 +19,9 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 200m
+            cpu: 20m
           limits:
-            cpu: 500m
+            cpu: 50m
         env:
         - name: env
           value: "development"
@@ -65,9 +65,9 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
-            cpu: 200m
+            cpu: 20m
           limits:
-            cpu: 500m
+            cpu: 50m
         env:
         - name: env
           value: "development"
@@ -124,7 +124,7 @@ spec:
     kind: Deployment
     name: app-nginx
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 3
   metrics:
   - type: Resource
     resource:
@@ -144,7 +144,7 @@ spec:
     kind: Deployment
     name: app-php
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 5
   metrics:
   - type: Resource
     resource:
