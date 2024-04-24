@@ -13,6 +13,16 @@ spec:
       labels:
         app: app-nginx
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - app-nginx
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: app-nginx
         image: yrs8/app-nginx-prod:v1.4
@@ -59,6 +69,16 @@ spec:
       labels:
         app: app-php
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - app-php
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - name: app-php
         image: yrs8/app-php-prod:v1.3
