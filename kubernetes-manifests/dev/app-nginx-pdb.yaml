@@ -1,0 +1,10 @@
+# app-nginx-pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: app-nginx-pdb
+spec:
+  maxUnavailable: 1  # 同時にダウンできる Pod の最大数
+  selector:
+    matchLabels:
+      app: app-nginx
