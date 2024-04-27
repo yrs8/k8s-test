@@ -6,7 +6,6 @@
 <img src="https://github.com/yrs8/k8s-test/assets/51853487/603e8ccc-d85b-4e9d-9ea9-49135d805208" width= "85%" >
 
 ## 導入背景
-
 Argo CD は、Kubernetes クラスタ上でのアプリケーションの持続的デリバリーを実現するツールです。GitOps の原則に基づいており、Kubernetes マニフェストが Git リポジトリに保存され、Argo CD がそれらをクラスタに同期します。これにより、アプリケーションのデプロイメントが自動化され、可視性が向上し、変更の追跡が容易にします。
 
 ## 手順

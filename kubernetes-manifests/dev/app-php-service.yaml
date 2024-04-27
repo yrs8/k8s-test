@@ -1,0 +1,12 @@
+# app-php-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-php-service
+spec:
+  selector:
+    app: app-php
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000

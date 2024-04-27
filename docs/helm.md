@@ -2,7 +2,6 @@
 ## Helm の導入
 Kubernetes のパッケージマネージャーとして、Helm を利用します。
 
-
 ## Helm のインストール
 参考: https://helm.sh/docs/intro/install/
 
