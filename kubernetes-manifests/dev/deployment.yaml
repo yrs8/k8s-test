@@ -15,8 +15,8 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
+          preferredDuringSchedulingIgnoredDuringExecution:  # 推奨要件
+          - weight: 1
             podAffinityTerm:
               labelSelector:
                 matchExpressions:
@@ -24,7 +24,7 @@ spec:
                   operator: In
                   values:
                   - app-nginx
-              topologyKey: "kubernetes.io/hostname"
+              topologyKey: "kubernetes.io/hostname"  # Pod を分散配置
       containers:
       - name: app-nginx
         image: yrs8/app-nginx-dev:v1.4
@@ -73,8 +73,8 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
+          preferredDuringSchedulingIgnoredDuringExecution:  # 推奨要件
+          - weight: 1
             podAffinityTerm:
               labelSelector:
                 matchExpressions:
@@ -82,7 +82,7 @@ spec:
                   operator: In
                   values:
                   - app-php
-              topologyKey: "kubernetes.io/hostname"
+              topologyKey: "kubernetes.io/hostname"  # Pod を分散配置
       containers:
       - name: app-php
         image: yrs8/app-php-dev:v1.3
@@ -168,7 +168,7 @@ spec:
     kind: Deployment
     name: app-php
   minReplicas: 1  # スケールアウトの最小値
-  maxReplicas: 5  # スケールアウトの最大値
+  maxReplicas: 3  # スケールアウトの最大値
   metrics:
   - type: Resource
     resource:
