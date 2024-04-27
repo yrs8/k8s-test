@@ -101,6 +101,13 @@ Argo CD は、Kubernetes クラスタ上でのアプリケーションの持続�
    admin / <新規パスワード> でログイン可能
    ```
 
+### アプリケーションの更新
+アプリケーション設定は[コチラ](/argocd/application-prod.yaml) で管理しています。
+
+```bash
+$ argocd app create --file application-prod.yaml --upsert
+```
+
 ## メモ
 ### 証明書適用
 1. TLS 用の secret 作成
