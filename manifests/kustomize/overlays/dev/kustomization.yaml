@@ -11,7 +11,7 @@ patches:
   - path: nginx/patch-deployment.yaml
     target:
       kind: Deployment
-      labelSelector: app=app-nginx
+      name: nginx-deployment
   - path: nginx/patch-hpa.yaml
     target:
       kind: HorizontalPodAutoscaler
