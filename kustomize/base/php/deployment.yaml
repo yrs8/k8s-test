@@ -4,7 +4,6 @@ kind: Deployment
 metadata:
   name: app-php
 spec:
-  replicas: 2  # Pod のレプリカ数
   selector:
     matchLabels:
       app: app-php
@@ -27,13 +26,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"  # Pod を分散配置
       containers:
       - name: app-php
-        image: yrs8/app-php-prod:v1.3
         imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: 20m    # 最小 CPU 使用量
-          limits:
-            cpu: 50m    # 最大 CPU 使用量
         env:
         - name: env
           value: "production"
