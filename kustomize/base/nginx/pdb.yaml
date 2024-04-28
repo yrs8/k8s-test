@@ -4,7 +4,6 @@ kind: PodDisruptionBudget
 metadata:
   name: app-nginx-pdb
 spec:
-  minAvailable: 1  #常に利用可能な Pod の最小数
   selector:
     matchLabels:
       app: app-nginx
