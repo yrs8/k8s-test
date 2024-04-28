@@ -23,7 +23,7 @@ patches:
   - path: php/patch-deployment.yaml
     target:
       kind: Deployment
-      labelSelector: app=app-php
+      name: php-deployment
   - path: php/patch-hpa.yaml
     target:
       kind: HorizontalPodAutoscaler
