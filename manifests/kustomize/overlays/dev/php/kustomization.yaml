@@ -1,0 +1,17 @@
+# overlays/dev/php/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+patches:
+  - path: patch-deployment.yaml
+    target:
+      kind: Deployment
+      labelSelector: app=app-php
+  - path: patch-hpa.yaml
+    target:
+      kind: HorizontalPodAutoscaler
+      name: app-php-hpa
+  - path: patch-pdb.yaml
+    target:
+      kind: PodDisruptionBudget
+      name: app-php-pdb

@@ -3,24 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- ../../base
+  - ../../base
+  - nginx
+  - php
 
-patches:
-- path: nginx/patch-deployment.yaml
-  target:
-    kind: Deployment
-- path: nginx/patch-hpa.yaml
-  target:
-    kind: HorizontalPodAutoscaler
-- path: nginx/patch-pdb.yaml
-  target:
-    kind: PodDisruptionBudget
-- path: php/patch-deployment.yaml
-  target:
-    kind: Deployment
-- path: php/patch-hpa.yaml
-  target:
-    kind: HorizontalPodAutoscaler
-- path: php/patch-pdb.yaml
-  target:
-    kind: PodDisruptionBudget
+namePrefix: dev-
