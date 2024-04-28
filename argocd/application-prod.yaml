@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/yrs8/k8s-test.git
     targetRevision: HEAD
-    path: kubernetes-manifests/prod
+    path: manifests/kustomize/overlays/prod
   destination:
     server: https://kubernetes.default.svc
     namespace: default

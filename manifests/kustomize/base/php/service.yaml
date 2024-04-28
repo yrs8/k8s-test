@@ -1,4 +1,4 @@
-# app-php-service.yaml
+# base/php/service.yaml
 apiVersion: v1
 kind: Service
 metadata:

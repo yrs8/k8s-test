@@ -1,15 +1,15 @@
-# app-php-hpa.yaml
+# base/nginx/hpa.yaml
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: app-php-hpa
+  name: app-nginx-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: app-php
-  minReplicas: 1  # スケールアウトの最小値
-  maxReplicas: 3  # スケールアウトの最大値
+    name: app-nginx
+  minReplicas: 2  # スケールアウトの最小値
+  maxReplicas: 5  # スケールアウトの最大値
   metrics:
   - type: Resource
     resource:
