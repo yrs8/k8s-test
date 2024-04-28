@@ -6,12 +6,21 @@ resources:
 - ../../base
 
 patches:
-- path: patch-deployment.yaml
+- path: patch-nginx-deployment.yaml
   target:
     kind: Deployment
-- path: patch-hpa.yaml
+- path: patch-nginx-hpa.yaml
   target:
     kind: HorizontalPodAutoscaler
-- path: patch-pdb.yaml
+- path: patch-nginx-pdb.yaml
+  target:
+    kind: PodDisruptionBudget
+- path: patch-php-deployment.yaml
+  target:
+    kind: Deployment
+- path: patch-php-hpa.yaml
+  target:
+    kind: HorizontalPodAutoscaler
+- path: patch-php-pdb.yaml
   target:
     kind: PodDisruptionBudget

@@ -1,0 +1,15 @@
+# overlays/prod/patch-php-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-deployment
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+      - name: app-php
+        image: yrs8/app-php-prod:v1.3
+        env:
+        - name: env
+          value: "production"
