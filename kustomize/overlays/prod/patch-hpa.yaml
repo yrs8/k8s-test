@@ -5,5 +5,14 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: app-nginx-hpa
 spec:
-  minReplicas: 5  # スケールアウトの最小値
-  maxReplicas: 9  # スケールアウトの最大値
+  minReplicas: 2  # スケールアウトの最小値
+  maxReplicas: 5  # スケールアウトの最大値
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: app-php-hpa
+spec:
+  minReplicas: 2  # スケールアウトの最小値
+  maxReplicas: 5  # スケールアウトの最大値

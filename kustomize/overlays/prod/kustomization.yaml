@@ -12,3 +12,6 @@ patches:
 - path: patch-hpa.yaml
   target:
     kind: HorizontalPodAutoscaler
+- path: patch-pdb.yaml
+  target:
+    kind: PodDisruptionBudget
