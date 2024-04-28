@@ -11,7 +11,7 @@ patches:
   - path: nginx/patch-deployment.yaml
     target:
       kind: Deployment
-      name: nginx-deployment
+      name: app-nginx
   - path: nginx/patch-hpa.yaml
     target:
       kind: HorizontalPodAutoscaler
@@ -23,7 +23,7 @@ patches:
   - path: php/patch-deployment.yaml
     target:
       kind: Deployment
-      name: php-deployment
+      name: app-php
   - path: php/patch-hpa.yaml
     target:
       kind: HorizontalPodAutoscaler
