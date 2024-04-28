@@ -1,8 +1,8 @@
-# overlays/prod/patch-php-hpa.yaml
+# overlays/prod/patch-hpa.yaml
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: app-php-hpa
+  name: app-nginx-hpa
 spec:
   minReplicas: 2  # スケールアウトの最小値
   maxReplicas: 5  # スケールアウトの最大値

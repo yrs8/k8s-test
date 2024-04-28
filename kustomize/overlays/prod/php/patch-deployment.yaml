@@ -1,15 +1,15 @@
-# overlays/prod/patch-nginx-deployment.yaml
+# overlays/prod/patch-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: php-deployment
 spec:
   replicas: 2
   template:
     spec:
       containers:
-      - name: app-nginx
-        image: yrs8/app-nginx-prod:v1.4
+      - name: app-php
+        image: yrs8/app-php-prod:v1.3
         resources:
           requests:
             cpu: 20m  # 最小 CPU 使用量

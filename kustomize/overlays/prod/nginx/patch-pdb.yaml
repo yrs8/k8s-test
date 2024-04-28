@@ -1,4 +1,4 @@
-# overlays/prod/patch-nginx-pdb.yaml
+# overlays/prod/patch-pdb.yaml
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
