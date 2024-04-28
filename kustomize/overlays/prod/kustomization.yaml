@@ -6,6 +6,9 @@ resources:
 - ../../base
 
 patches:
-- path: patch-prod.yaml
+- path: patch-deployment.yaml
   target:
     kind: Deployment
+- path: patch-hpa.yaml
+  target:
+    kind: HorizontalPodAutoscaler
