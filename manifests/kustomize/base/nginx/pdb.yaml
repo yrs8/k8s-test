@@ -1,0 +1,9 @@
+# base/nginx/pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: app-nginx-pdb
+spec:
+  selector:
+    matchLabels:
+      app: app-nginx

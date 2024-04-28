@@ -1,0 +1,9 @@
+# base/php/pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: app-php-pdb
+spec:
+  selector:
+    matchLabels:
+      app: app-php
