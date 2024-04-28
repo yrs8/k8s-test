@@ -4,7 +4,9 @@ kind: Kustomization
 
 resources:
   - ../../base
-  - nginx
-  - php
 
 namePrefix: dev-
+
+patches:
+  - nginx
+  - php
