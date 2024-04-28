@@ -1,0 +1,14 @@
+# overlays/prod/patch-prod.yaml
+apiVersion: apps/v1
+kind: Deployment
+  name: nginx-deployment
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+      - name: app-nginx
+        image: yrs8/app-nginx-prod:v1.4
+        env:
+        - name: env
+          value: "production"
