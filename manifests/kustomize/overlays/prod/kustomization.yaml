@@ -1,3 +1,32 @@
 # overlays/prod/kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - path: nginx/patch-deployment.yaml
+    target:
+      kind: Deployment
+      name: app-nginx
+  - path: nginx/patch-hpa.yaml
+    target:
+      kind: HorizontalPodAutoscaler
+      name: app-nginx-hpa
+  - path: nginx/patch-pdb.yaml
+    target:
+      kind: PodDisruptionBudget
+      name: app-nginx-pdb
+  - path: php/patch-deployment.yaml
+    target:
+      kind: Deployment
+      name: app-php
+  - path: php/patch-hpa.yaml
+    target:
+      kind: HorizontalPodAutoscaler
+      name: app-php-hpa
+  - path: php/patch-pdb.yaml
+    target:
+      kind: PodDisruptionBudget
+      name: app-php-pdb
