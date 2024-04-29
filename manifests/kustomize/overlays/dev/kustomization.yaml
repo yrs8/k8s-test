@@ -5,8 +5,6 @@ kind: Kustomization
 resources:
   - ../../base
 
-namePrefix: dev-
-
 patches:
   - path: nginx/patch-deployment.yaml
     target:
