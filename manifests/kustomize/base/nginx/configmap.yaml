@@ -5,44 +5,4 @@ metadata:
   name: nginx-config
 data:
   default.conf: |
-    server {
-        listen 80;
-        index index.php;
-        server_name dev-localhost;
-        root /var/www/html;
-        server_tokens off;
-
-        # キャッシュ無効化
-        add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0";
-        expires off;
-        etag off;
-
-        # リクエスト URI に対応するファイル or ディレクトリが存在しない場合は @notfound にリダイレクト
-        location / {
-            try_files $uri $uri/ @notfound;
-        }
-
-        # 404エラーを返す
-        location @notfound {
-            return 404;
-        }
-
-        # ヘルスチェック用
-        location /health {
-            fastcgi_pass dev-app-php-service:9000;
-            fastcgi_index health_check.php;
-            include fastcgi_params;
-            fastcgi_param SCRIPT_FILENAME $document_root/health_check.php;
-        }
-
-        # .php で終わるリクエストを php-fpm に転送
-        location ~ \.php$ {
-            try_files $uri =404;
-            fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass dev-app-php-service:9000;
-            fastcgi_index index.php;
-            include fastcgi_params;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            fastcgi_param PATH_INFO $fastcgi_path_info;
-        }
-    }
+    {{ .Files.Get "../../../nginx/default-dev.conf" | indent 4 }}
