@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
       - name: app-php
-        image: yrs8/app-php-dev:v1.3
+        image: yrs8/app-php-dev:v1.4
         resources:
           requests:
             cpu: 20m  # 最小 CPU 使用量
