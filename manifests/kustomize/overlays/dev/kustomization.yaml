@@ -32,4 +32,4 @@ patches:
       name: app-php-pdb
 
 patchesStrategicMerge:
-  - nginx/patch-configmap.yaml
+  - nginx/cm-default.conf.yaml

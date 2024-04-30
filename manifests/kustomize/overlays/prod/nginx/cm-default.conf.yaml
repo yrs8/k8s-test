@@ -1,4 +1,4 @@
-# base/nginx/configmap.yaml
+# overlays/prod/patch-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,7 +8,7 @@ data:
     server {
         listen 80;
         index index.php;
-        server_name default.local;
+        server_name k8s-test.prod;
         root /var/www/html;
         server_tokens off;
 
