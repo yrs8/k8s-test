@@ -27,13 +27,6 @@ spec:
       containers:
       - name: app-nginx
         imagePullPolicy: Always
-        volumeMounts:
-        - name: config-volume
-          mountPath: /etc/nginx/conf.d
-      volumes:
-      - name: config-volume
-        configMap:
-          name: nginx-config
 
         # Pod の生存確認設定
         livenessProbe:
@@ -52,3 +45,13 @@ spec:
           initialDelaySeconds: 5  # コンテナ起動後、チェックを開始するまでの遅延時間（秒）
           periodSeconds: 10       # チェックの間隔（秒）
           timeoutSeconds: 5       # チェックの応答タイムアウト時間（秒）
+
+        # マウントした ConfigMap の設定ファイルを読み込む
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/nginx/conf.d
+
+      volumes:
+      - name: config-volume
+        configMap:
+          name: nginx-config
