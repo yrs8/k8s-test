@@ -1,7 +1,16 @@
 # k8s-test
 ## 概要
-* 自身の env(development or production)をレスポンスとして返すシンプルな web サーバ
-* Kubernetes にデプロイするためのマニフェストファイル
+* 自身の env(development or production)をレスポンスとして返すシンプルな web アプリケーション
+* Kubernetes のマニフェストファイルを管理
+
+## マニフェスト設計の考慮点
+* Pod のスケーリング: HorizontalPodAutoscaler を使用して、CPU 使用率に基づいて Pod の数を自動的にスケールアップまたはスケールダウン
+* Pod の移行: PodDisruptionBudget を使用して、Podの移行中に同時にダウンできる Pod の数を制限
+* マニフェストの自動デプロイ: Argo CD を使ったマニフェストの自動デプロイ
+* YAML の分割・管理: YAML をモジュール単位し、Kustomize を利用して環境(dev/prod)差分を管理
+* ConfigMap の利用: Nginx の設定管理に ConfigMap を利用
+* Argo CD の YAML 管理: Argo CD の設定も YAML で管理
+* ノードの割当: affinity を利用してどのノードに配置するかを制御
 
 ## 環境構築手順
 ### ローカル開発
@@ -49,35 +58,36 @@
 ### Kubernetes デプロイ方法
 * はじめに
    * マニフェストは Kubernetes v1.28.6 での動作を確認しています。
-   * 手動で適用する場合は、本手順を参考にしてください。
-   * 自動で適用する場合は、[Argo CD](docs/argocd.md) による持続的デリバリーの方法があります。
+   * デプロイは、[Argo CD](docs/argocd.md) による持続的デリバリーを利用しています。
+   * 手動で適用する場合は、以下手順を参考にしてください。
 
 1. リポジトリをクローン
    ```bash
    $ git clone https://github.com/yrs8/k8s-test.git
    ```
+1. 最終的な YAML 設定を生成
+   * **[本番環境]**
+      ```bash
+      $ cd manifests/kustomize/overlays/prod
+      $ kustomize build . > all-in-one-prod.yaml
+      ```
+   * **[開発環境]**
+      ```bash
+      $ cd manifests/kustomize/overlays/dev
+      $ kustomize build . > all-in-one-dev.yaml
+      ```
+     * [補足] Argo CD から出力する場合
+         ```bash
+         $ argocd app manifests k8s-test > all-in-one-prod.yaml
+         ```
 1. マニフェストの適用・デプロイ
    * **[本番クラスター]**
       ```bash
-      # ディレクトリ移動
-      $ cd k8s-test/kubernetes-manifests/prod/
-
-      # env の value が production であることを確認
-      $ grep "env" deployment.yaml -A 1
-
-      # デプロイ
-      $ kubectl apply -f deployment.yaml
+      $ kubectl apply -f all-in-one-prod.yaml
       ```
    * **[開発クラスター]**
       ```bash
-      # ディレクトリ移動
-      $ cd k8s-test/kubernetes-manifests/dev/
-
-      # env の value が development であることを確認
-      $ grep "env" deployment.yaml -A 1
-
-      # デプロイ
-      $ kubectl apply -f deployment.yaml
+      $ kubectl apply -f all-in-one-dev.yaml
       ```
 1. デプロイ状態を確認
    ```bash
