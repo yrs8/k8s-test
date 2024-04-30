@@ -29,7 +29,7 @@ data:
 
         # ヘルスチェック用
         location /health {
-            fastcgi_pass dev-app-php-service:9000;
+            fastcgi_pass app-php-service:9000;
             fastcgi_index health_check.php;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root/health_check.php;
@@ -39,7 +39,7 @@ data:
         location ~ \.php$ {
             try_files $uri =404;
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass dev-app-php-service:9000;
+            fastcgi_pass app-php-service:9000;
             fastcgi_index index.php;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
