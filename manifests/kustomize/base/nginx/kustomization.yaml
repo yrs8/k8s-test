@@ -7,4 +7,3 @@ resources:
   - service.yaml
   - hpa.yaml
   - pdb.yaml
-  - configmap.yaml
