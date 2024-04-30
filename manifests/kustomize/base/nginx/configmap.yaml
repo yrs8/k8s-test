@@ -8,7 +8,7 @@ data:
     server {
         listen 80;
         index index.php;
-        server_name _;
+        server_name default.local;
         root /var/www/html;
         server_tokens off;
 
