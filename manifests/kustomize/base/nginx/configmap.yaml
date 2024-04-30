@@ -4,7 +4,7 @@ kind: ConfigMap
 metadata:
   name: nginx-config
 data:
-  default.conf: |
+  default-v2.conf: |
     server {
         listen 80;
         index index.php;
