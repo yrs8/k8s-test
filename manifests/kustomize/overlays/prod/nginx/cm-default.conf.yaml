@@ -1,4 +1,4 @@
-# overlays/prod/patch-configmap.yaml
+# overlays/prod/cm-default.conf.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
