@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
       - name: app-nginx
-        image: yrs8/app-nginx-dev:v1.4
+        image: yrs8/app-nginx-dev:v1.5
         resources:
           requests:
             cpu: 20m  # 最小 CPU 使用量
