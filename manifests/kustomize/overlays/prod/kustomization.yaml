@@ -30,3 +30,6 @@ patches:
     target:
       kind: PodDisruptionBudget
       name: app-php-pdb
+
+patchesStrategicMerge:
+  - nginx/patch-configmap.yaml

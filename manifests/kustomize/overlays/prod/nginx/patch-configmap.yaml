@@ -1,0 +1,10 @@
+# overlays/prod/patch-configmap-yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  default.conf: |
+    server {
+        server_name k8s-test.prod;
+    }
