@@ -6,7 +6,7 @@ metadata:
 data:
   default.conf: |
     # 共通設定をマージ
-    {{- .Files.Get "../../../base/nginx/configmap.yaml" | indent 4 }}
+    {{- .Files.Get "../../../../base/nginx/configmap.yaml" | indent 4 }}
     server {
         server_name k8s-test.prod;
     }
